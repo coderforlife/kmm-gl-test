@@ -1,0 +1,5 @@
+headers = libEGL/libEGL.h libGLESv2/libGLESv2.h
+package = angle
+language = C
+depends = CFCGTypes CoreFoundation CoreFoundationBase CoreGraphics CoreImage CoreText CoreVideo FileProvider Foundation IOSurface ImageIO Metal ModelIO QuartzCore Security Symbols UIKit darwin posix
+compilerOpts.ios = -F ../ -framework libEGL -framework libGLESv2 -I ../include

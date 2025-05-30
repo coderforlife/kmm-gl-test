@@ -3,25 +3,10 @@ package edu.moravian.kmmgl.test
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.UIKitViewController
-import kotlinx.cinterop.CValue
+import angle.GL_COLOR_BUFFER_BIT
+import angle.glClear
+import angle.glClearColor
 import kotlinx.cinterop.ExperimentalForeignApi
-import platform.CoreGraphics.CGRect
-import platform.Foundation.NSBundle
-import platform.darwin.NSObject
-import platform.gles.glClear
-import platform.gles.glClearColor
-
-//import platform.EAGL.EAGLContext as GLContext
-//import platform.GLKit.GLKView
-//import platform.GLKit.GLKViewController
-//import platform.GLKit.GLKViewControllerDelegateProtocol
-//import platform.GLKit.GLKViewDelegateProtocol
-
-import metal_angle.MGLContext as GLContext
-import metal_angle.MGLKView as GLKView
-import metal_angle.MGLKViewController as GLKViewController
-import metal_angle.MGLKViewControllerDelegateProtocol as GLKViewControllerDelegateProtocol
-import metal_angle.MGLKViewDelegateProtocol as GLKViewDelegateProtocol
 
 @ExperimentalForeignApi
 @Composable
@@ -29,59 +14,44 @@ actual fun GLView(modifier: Modifier) {
     UIKitViewController(
         modifier = modifier,
         factory = {
-            ViewController().apply {
-                delegate = controllerDelegateHolder
+            MGLKViewController(MGLContext(3), ViewListener()).apply {
+                config = Config(
+                    colorFormat = ColorFormat.RGBA8888,
+                    depthFormat = DepthFormat.DF16,
+                    stencilFormat = StencilFormat.None,
+                    multisample = Multisample.X4,
+                )
             }
         },
     )
 }
 
 @ExperimentalForeignApi
-private val controllerDelegateHolder = ViewControllerDelegate()
-
-@ExperimentalForeignApi
-private val delegateHolder = ViewDelegate()
-
-@ExperimentalForeignApi
-private class ViewController(nibName: String? = null, bundle: NSBundle? = null): GLKViewController(nibName, bundle) {
-    override fun loadView() {
-        //setView(GLKView().apply {
-        setView(GLKView().apply {
-            context = GLContext(3) // uL
-//            drawableColorFormat = 0
-//            drawableDepthFormat = 1
-//            drawableStencilFormat = 0
-//            drawableMultisample = 1
-            delegate = delegateHolder
-        })
+private class ViewListener: MGLViewListener {
+    override fun onLoad(controller: MGLKViewController) {
+        println("onLoad")
     }
 
-    override fun viewDidLoad() {
-        super.viewDidLoad()
-        (this.view as? GLKView)?.context?.let {
-            GLContext.setCurrentContext(it)
-        }
+    override fun onUnload(controller: MGLKViewController) {
+        println("onUnload")
     }
 
-    override fun viewDidUnload() {
-        super.viewDidUnload()
-        setView(null)
+    override fun onPause(controller: MGLKViewController) {
+        println("onPause")
     }
-}
 
-@ExperimentalForeignApi
-private class ViewControllerDelegate: NSObject(), GLKViewControllerDelegateProtocol {
-    override fun mglkViewControllerUpdate(controller: GLKViewController) {
-        //println("glkViewControllerUpdate")
+    override fun onResume(controller: MGLKViewController) {
+        println("onResume")
     }
-}
 
-@ExperimentalForeignApi
-private class ViewDelegate: NSObject(), GLKViewDelegateProtocol {
-    //var frame = 0
-    override fun mglkView(view: GLKView?, drawInRect: CValue<CGRect>) {
-        //println("glkView: ${++frame}")
+    override fun onResize(controller: MGLKViewController, width: Int, height: Int) {
+        println("onResize: $width x $height")
+    }
+
+    var frame = 0
+    override fun onRender(controller: MGLKViewController, rect: Rect, timeSinceLastUpdate: Double) {
+        println("onRender: ${++frame}, $timeSinceLastUpdate seconds since last update")
         glClearColor(0.0f, 1.0f, 0.0f, 1.0f)
-        glClear(0x4000u)
+        glClear(GL_COLOR_BUFFER_BIT.toUInt())
     }
 }

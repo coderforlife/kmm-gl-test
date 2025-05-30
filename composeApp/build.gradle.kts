@@ -26,8 +26,8 @@ kotlin {
 
         iosTarget.compilations.forEach {
             it.cinterops {
-                val MetalANGLE by creating {
-                    packageName("metal_angle")
+                val angle by creating {
+                    packageName("angle")
                 }
             }
         }
@@ -87,4 +87,3 @@ android {
         debugImplementation(compose.uiTooling)
     }
 }
-

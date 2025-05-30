@@ -11,8 +11,10 @@
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
-		D8D26E272DD7ECCC00D7B677 /* MetalANGLE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D26E252DD7ECC500D7B677 /* MetalANGLE.framework */; };
-		D8D26E282DD7ECCC00D7B677 /* MetalANGLE.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D8D26E252DD7ECC500D7B677 /* MetalANGLE.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D8E06D5C2DE60C4D00EF3B91 /* libEGL.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E06D582DE60C3000EF3B91 /* libEGL.xcframework */; };
+		D8E06D5D2DE60C4D00EF3B91 /* libEGL.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D8E06D582DE60C3000EF3B91 /* libEGL.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D8E06D5E2DE60C4F00EF3B91 /* libGLESv2.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E06D5A2DE60C3C00EF3B91 /* libGLESv2.xcframework */; };
+		D8E06D5F2DE60C4F00EF3B91 /* libGLESv2.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D8E06D5A2DE60C3C00EF3B91 /* libGLESv2.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -22,7 +24,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D8D26E282DD7ECCC00D7B677 /* MetalANGLE.framework in Embed Frameworks */,
+				D8E06D5F2DE60C4F00EF3B91 /* libGLESv2.xcframework in Embed Frameworks */,
+				D8E06D5D2DE60C4D00EF3B91 /* libEGL.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -38,7 +41,8 @@
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB3632DC29227652001CCB65 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		D8D26E042DD7B32100D7B677 /* MetalANGLE-BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MetalANGLE-BridgingHeader.h"; sourceTree = "<group>"; };
-		D8D26E252DD7ECC500D7B677 /* MetalANGLE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalANGLE.framework; path = ../MetalANGLE/iphonesimulator/MetalANGLE.framework; sourceTree = SOURCE_ROOT; };
+		D8E06D582DE60C3000EF3B91 /* libEGL.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = libEGL.xcframework; path = ../libEGL.xcframework; sourceTree = SOURCE_ROOT; };
+		D8E06D5A2DE60C3C00EF3B91 /* libGLESv2.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = libGLESv2.xcframework; path = ../libGLESv2.xcframework; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +50,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8D26E272DD7ECCC00D7B677 /* MetalANGLE.framework in Frameworks */,
+				D8E06D5E2DE60C4F00EF3B91 /* libGLESv2.xcframework in Frameworks */,
+				D8E06D5C2DE60C4D00EF3B91 /* libEGL.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,7 +69,8 @@
 		42799AB246E5F90AF97AA0EF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D8D26E252DD7ECC500D7B677 /* MetalANGLE.framework */,
+				D8E06D582DE60C3000EF3B91 /* libEGL.xcframework */,
+				D8E06D5A2DE60C3C00EF3B91 /* libGLESv2.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -350,7 +356,7 @@
 					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 					"$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 					"$(PROJECT_DIR)",
-					"$(SRCROOT)/../MetalANGLE/$(PLATFORM_NAME)",
+					"$(SRCROOT)/..",
 				);
 				INFOPLIST_FILE = iosApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.3;
@@ -380,7 +386,7 @@
 					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 					"$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 					"$(PROJECT_DIR)",
-					"$(SRCROOT)/../MetalANGLE/$(PLATFORM_NAME)",
+					"$(SRCROOT)/..",
 				);
 				INFOPLIST_FILE = iosApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.3;
